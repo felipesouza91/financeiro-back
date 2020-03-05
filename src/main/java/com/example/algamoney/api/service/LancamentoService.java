@@ -20,7 +20,7 @@ public class LancamentoService {
 	private LancamentoRepository lancamentoRepository;
 
 	public Lancamento salvar(Lancamento lancamento) {
-		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+		Pessoa pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
 		if (pessoa == null || pessoa.isInativo()) {
 			throw new PessoaInexistenteOuInativaException();
 		}
@@ -40,7 +40,7 @@ public class LancamentoService {
 	private void validarPessoa(Lancamento lancamento) {
 		Pessoa pessoa = null;
 		if(lancamento.getPessoa().getCodigo() != null) {
-			pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+			pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
 		}
 		if (pessoa == null || pessoa.isInativo()) {
 			throw new PessoaInexistenteOuInativaException();
@@ -48,7 +48,7 @@ public class LancamentoService {
 	}
 	
 	private Lancamento buscarLancamentoExistente(Long codigo) {
-		Lancamento lancamento = lancamentoRepository.findOne(codigo);
+		Lancamento lancamento = lancamentoRepository.findById(codigo).get();
 		if ( lancamento == null ) {
 			throw new IllegalArgumentException();
 		}
