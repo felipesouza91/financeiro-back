@@ -2,10 +2,11 @@ CREATE TABLE conta (
 	codigo BIGINT(20) PRIMARY KEY,
 	descricao VARCHAR(50) NOT NULL,
 	codigo_usuario BIGINT(20) NOT NULL,
+	ativo bit not null,
 	FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into conta(codigo, descricao, codigo_usuario) values (1, 'Padrao', 1);
+insert into conta(codigo, descricao, codigo_usuario, ativo) values (1, 'Padrao', 1,1);
 
 alter table lancamento drop foreign key lancamento_ibfk_2;
 

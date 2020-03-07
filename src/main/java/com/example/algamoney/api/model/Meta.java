@@ -29,6 +29,10 @@ public class Meta {
 	private BigDecimal valor;
 	
 	@ManyToOne
+	@JoinColumn(name = "codigo_categoria")
+	private Categoria categoria;
+	
+	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
 	private Usuario usuario;
 

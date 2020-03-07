@@ -72,4 +72,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/projectlombok/lombok/1.18.10/lombok-1.18.10.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/flywaydb/flyway-core/5.2.4/flyway-core-5.2.4.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/commons/commons-lang3/3.9/commons-lang3-3.9.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\felip\.m2\repository\org\hibernate\hibernate-jpamodelgen\5.3.7.Final\hibernate-jpamodelgen-5.3.7.Final.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
