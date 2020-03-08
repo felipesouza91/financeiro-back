@@ -5,13 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.algamoney.api.model.Lancamento;
+import com.example.algamoney.api.repository.CategoriaRepository;
+import com.example.algamoney.api.repository.ContaRepository;
 import com.example.algamoney.api.repository.LancamentoRepository;
-
+	
 @Service
 public class LancamentoService {
 
 	@Autowired 
 	private LancamentoRepository lancamentoRepository;
+	
+	@Autowired
+	private ContaRepository contaRepository;
+		
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	public Lancamento salvar(Lancamento lancamento) {
 		/*Pessoa pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();

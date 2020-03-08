@@ -20,7 +20,7 @@ public class AuthUser extends User{
 	public AuthUser(Usuario usuario, Collection<GrantedAuthority> collection ) {
 		super(usuario.getEmail(), usuario.getSenha(), collection);
 		this.fullName = usuario.getNome();
-		this.id = usuario.getId();
+		this.id = usuario.getCodigo();
 	}
 
 }
