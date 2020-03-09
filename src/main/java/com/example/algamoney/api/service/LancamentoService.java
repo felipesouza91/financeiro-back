@@ -8,11 +8,15 @@ import com.example.algamoney.api.model.Lancamento;
 import com.example.algamoney.api.repository.CategoriaRepository;
 import com.example.algamoney.api.repository.ContaRepository;
 import com.example.algamoney.api.repository.LancamentoRepository;
+import com.example.algamoney.api.service.exception.EntidadeNaoEncontradaException;
+
+import lombok.Getter;
 	
 @Service
 public class LancamentoService {
 
 	@Autowired 
+	@Getter
 	private LancamentoRepository lancamentoRepository;
 	
 	@Autowired
@@ -22,12 +26,15 @@ public class LancamentoService {
 	private CategoriaRepository categoriaRepository;
 
 	public Lancamento salvar(Lancamento lancamento) {
-		/*Pessoa pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
-		if (pessoa == null || pessoa.isInativo()) {
-			throw new PessoaInexistenteOuInativaException();
-		}*/
-		
-		return lancamentoRepository.save(lancamento);
+		try {
+			this.categoriaRepository.findById(lancamento.getCategoria().getCodigo())
+				.orElseThrow(() -> new EntidadeNaoEncontradaException());
+			this.contaRepository.findById(lancamento.getConta().getCodigo())
+				.orElseThrow(() -> new EntidadeNaoEncontradaException());
+			return lancamentoRepository.save(lancamento);
+		}catch (EntidadeNaoEncontradaException e) {
+			throw e;
+		}
 	}
 
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
