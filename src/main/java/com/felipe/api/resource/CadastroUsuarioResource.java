@@ -1,6 +1,10 @@
 package com.felipe.api.resource;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +31,10 @@ public class CadastroUsuarioResource {
 	}
 	
 	@PostMapping
-	public Usuario cadastro(@RequestBody Usuario usuario) {
+	public ResponseEntity<?> cadastro(@RequestBody @Valid Usuario usuario) {
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-		return this.usuarioDao.save(usuario);
+		usuarioDao.save(usuario);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 }

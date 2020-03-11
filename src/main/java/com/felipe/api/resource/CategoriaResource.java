@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.api.event.RecursoCriadoEvent;
 import com.felipe.api.model.Categoria;
+import com.felipe.api.model.Usuario;
 import com.felipe.api.repository.CategoriaRepository;
+import com.felipe.api.secutiry.FincSecurity;
 
 @RestController
 @RequestMapping("/categorias")
@@ -32,6 +34,9 @@ public class CategoriaResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	@Autowired
+	private FincSecurity security;
+	
 	@GetMapping
 	//@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')")
 	public List<Categoria> listar() {
@@ -41,6 +46,7 @@ public class CategoriaResource {
 	@PostMapping
 	//@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA')")
 	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
+		categoria.setUsuario(security.getUsuarioId());
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);

@@ -14,6 +14,8 @@ public class AuthUser extends User{
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	private Usuario usuario;
 	private Long id;
 	private String fullName;
 	
@@ -21,6 +23,7 @@ public class AuthUser extends User{
 		super(usuario.getEmail(), usuario.getSenha(), collection);
 		this.fullName = usuario.getNome();
 		this.id = usuario.getCodigo();
+		this.usuario = usuario;
 	}
 
 }
