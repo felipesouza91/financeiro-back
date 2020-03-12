@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,11 +23,15 @@ import com.felipe.api.model.Lancamento;
 import com.felipe.api.model.Lancamento_;
 import com.felipe.api.repository.filter.LancamentoFilter;
 import com.felipe.api.repository.projection.ResumoLancamento;
+import com.felipe.api.secutiry.FincSecurity;
 
 public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private FincSecurity security;
 	
 	@Override
 	public Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable) {
@@ -67,7 +72,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 	private Predicate[] criarRestricoes(LancamentoFilter lancamentoFilter, CriteriaBuilder builder,
 			Root<Lancamento> root) {
 		List<Predicate> predicates = new ArrayList<>();
-		
+		predicates.add(builder.equal(root.get("conta").get("usuario"), security.getUsuario()));
 		if (!StringUtils.isEmpty(lancamentoFilter.getDescricao())) {
 			predicates.add(builder.like(
 					builder.lower(root.get(Lancamento_.descricao)), "%" + lancamentoFilter.getDescricao().toLowerCase() + "%"));

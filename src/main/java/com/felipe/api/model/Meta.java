@@ -4,11 +4,14 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,11 +23,12 @@ import lombok.EqualsAndHashCode;
 public class Meta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(name="kaugen" , strategy="increment")
+	@GeneratedValue(generator="kaugen")
 	@EqualsAndHashCode.Include
 	private Long codigo;
 	
-	private Long descricao;
+	private String descricao;
 	
 	private BigDecimal valor;
 	
@@ -34,6 +38,7 @@ public class Meta {
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
+	@JsonIgnore
 	private Usuario usuario;
 
 }

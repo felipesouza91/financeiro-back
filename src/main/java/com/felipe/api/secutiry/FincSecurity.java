@@ -14,10 +14,10 @@ public class FincSecurity {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 	
-	public Usuario getUsuarioId() {
+	public Usuario getUsuario() {
 		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 		Usuario usuario = new Usuario();
-		usuario.setCodigo(jwt.getClaim("usuario_id"););
+		usuario.setCodigo(jwt.getClaim("usuario_id"));
 		return usuario;
 	}
 	

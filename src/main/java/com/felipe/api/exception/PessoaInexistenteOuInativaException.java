@@ -1,4 +1,4 @@
-package com.felipe.api.service.exception;
+package com.felipe.api.exception;
 
 public class PessoaInexistenteOuInativaException extends RuntimeException {
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ManyToAny;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +32,7 @@ public class Categoria {
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
+	@JsonIgnore
 	private Usuario usuario;
 
 	
