@@ -9,8 +9,10 @@ import com.felipe.api.model.Conta;
 import com.felipe.api.model.Usuario;
 
 public interface ContaRepository extends JpaRepository<Conta, Long> {
-	
-	public List<Conta> findByUsuario(Usuario usuario); 
-	
-	public Optional<Conta>  findByCodigoAndUsuario(Long codigo, Usuario usuario);
+
+	public List<Conta> findByUsuario(Usuario usuario);
+
+	public List<Conta> findByDescricaoContainingAndUsuario(String descricao, Usuario usuario);
+
+	public Optional<Conta> findByCodigoAndUsuario(Long codigo, Usuario usuario);
 }

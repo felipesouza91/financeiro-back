@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,8 +47,8 @@ public class MetaResource {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Meta> buscarTodos(){
-		return this.metaRepository.findByUsuario(security.getUsuario());
+	public List<Meta> buscarTodos(@RequestParam(required = false, defaultValue = "") String descricao){
+		return this.metaRepository.findByDescricaoContainingAndUsuario(descricao, security.getUsuario());
 	}
 	
 	@GetMapping("{codigo}")

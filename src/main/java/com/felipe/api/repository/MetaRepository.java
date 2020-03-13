@@ -12,5 +12,7 @@ public interface MetaRepository extends JpaRepository<Meta, Long>{
 
 	public List<Meta> findByUsuario(Usuario usuario);
 	
+	public List<Meta> findByDescricaoContainingAndUsuario(String descricao, Usuario usuario);
+	
 	public Optional<Meta> findByCodigoAndUsuario(Long codigo, Usuario usuario);
 }

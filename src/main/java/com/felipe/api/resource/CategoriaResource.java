@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.api.event.RecursoCriadoEvent;
@@ -41,8 +42,9 @@ public class CategoriaResource {
 	
 	@GetMapping
 	@PreAuthorize("isAuthenticated()")
-	public List<Categoria> listar() {
-		return categoriaRepository.findByUsuario(security.getUsuario());
+	public List<Categoria> listar(@RequestParam(required = false, defaultValue = "") String nome) {
+		
+		return categoriaRepository.findByNomeContainingAndUsuario(nome,security.getUsuario());
 	}
 	
 	@GetMapping("/{codigo}")
@@ -83,7 +85,7 @@ public class CategoriaResource {
 	@DeleteMapping("{id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> excluir(@PathVariable Long id) {
-		Categoria categoriaSalva = findById(id);
+		Categoria categoriaSalva = findByIdAndUsuario(id);
 		try {
 			if(categoriaSalva.getUsuario().getCodigo().equals(security.getUsuario().getCodigo())) {
 				categoriaRepository.deleteById(id);

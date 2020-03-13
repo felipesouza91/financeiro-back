@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.api.event.RecursoCriadoEvent;
@@ -41,8 +42,8 @@ public class ContaResource {
 	
 	@GetMapping
 	@PreAuthorize("isAuthenticated()")
-	public List<Conta> buscarTodos() {
-		return this.contaRespository.findByUsuario(security.getUsuario());
+	public List<Conta> buscarTodos(@RequestParam(defaultValue = "", required = false) String descricao) {
+		return this.contaRespository.findByDescricaoContainingAndUsuario(descricao, security.getUsuario());
 	}
 	
 	@GetMapping("{id}")

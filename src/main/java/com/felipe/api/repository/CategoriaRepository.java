@@ -11,6 +11,9 @@ import com.felipe.api.model.Usuario;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 	public List<Categoria> findByUsuario(Usuario usuario);
+
+	public List<Categoria> findByNomeContainingAndUsuario(String nome,Usuario usuario);
+
 	
 	public Optional<Categoria> findByCodigoAndUsuario(Long codigo, Usuario usuario);
 }
